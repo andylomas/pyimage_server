@@ -15,7 +15,8 @@ function setup() {
 
   // Address of the web server. Change this address to the
   // server you're running on
-  const serverAddress = 'http://192.168.0.18:8080/';
+  //const serverAddress = 'http://192.168.0.18:8080';
+  const serverAddress = 'http://localhost:8080';
 
   // Connect to the server using a socket
   socket = io.connect(serverAddress);
@@ -31,7 +32,7 @@ function setup() {
 
       // Load the image asynchronously with a callback to
       // run when the image has been received from the server
-      loadImage(serverAddress + imageName, 
+      loadImage(serverAddress + '/' + imageName, 
         function(img) {
           console.log('loadImage: image received');
           // Display the picture in the canvas

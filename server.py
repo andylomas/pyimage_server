@@ -20,7 +20,7 @@ def randomImage(sizeX, sizeY):
                 random.randint(0,255))
 
     # Resize the image up to full size
-    im = im.resize( (sizeX, sizeY));
+    im = im.resize((sizeX, sizeY), Image.NEAREST);
 
     # Return the image as the result of the function
     return im
@@ -33,7 +33,7 @@ sio.attach(app)
 # Change the working directory to the project root
 # This line should be changed depending on where you
 # place the code in the Raspberry Pi
-project_root = '/home/pi/code/python/picam_server'
+project_root = 'E:/Users/Andy Lomas/Documents/GitHub/pyimage_server'
 os.chdir(project_root)
 
 # Create an images directory if it doesn't already exist
