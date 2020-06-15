@@ -1,0 +1,3 @@
+aiohttp
+python_socketio
+picamera
