@@ -1,6 +1,6 @@
 # pyimage_server
 
-Example of a webserver using Python to generate images on a computer connected over a network. Uses the aiohttp and socketio Python modules. This is an adapted version of https://github.com/andylomas/picam_server designed to work on any computer and generating images made of random coloured squares instead of using the Raspberry Pi's camera.
+Example of a webserver using Python to generate images on a computer connected over a network. Uses the aiohttp and socketio Python modules. This is an adapted version of https://github.com/andylomas/picam_server designed to work on any computer and generating images made of random coloured squares instead of using the Raspberry Pi camera.
 
 A p5.js sketch is used to create a simple web app to send messages to the server to take pictures, request the images from the server, and display them in a browser.
 
@@ -15,10 +15,15 @@ The instructions were originally written for use with a Raspberry Pi, which uses
 3. Edit 'sketch.js' changing the serverAddress variable to the URL to access the server on the network. If you just want to run this locally rather than over a network you should be able to use 'http://localhost:8080'
 4. Install the requirements by changing to the project directory and using 'python3 -m pip install -r requirements.txt'.
 
-To run the server:
+### To run the server:
 
 1. cd to the project directory.
 2. Run the server using 'python3 server.py'.
+
+### To run the web application:
+
+1. Open a browser on the client computer.
+2. Enter the URL to the server such as 'http://localhost:8080', 'raspberrypi.local:8080' or '192.168.0.18:8080'.
 
 ## Notes
 
