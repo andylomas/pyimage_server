@@ -7,11 +7,6 @@ import os
 
 print("Starting server.py")
 
-# Attach socketio to the web server application
-sio = socketio.AsyncServer()
-app = web.Application()
-sio.attach(app)
-
 # Change the working directory to the project root
 # This line should be changed depending on where you place the code
 project_root = 'E:/Users/Andy Lomas/Documents/GitHub/pyimage_server'
@@ -21,6 +16,9 @@ os.chdir(project_root)
 if not os.path.exists(project_root + '/images'):
     print(f'creating images directory in {project_root}')
     os.makedirs(project_root + '/images')
+    
+# Setup the web server application
+app = web.Application()
 
 # Serve requests for index.html
 async def index(request):
@@ -32,11 +30,20 @@ async def sketch(request):
     with open('sketch.js') as f:
         return web.Response(text=f.read(), content_type='text/javascript')
 
+# Specify callbacks to use when get request for specified routes
+app.router.add_get('/', index)
+app.router.add_get('/sketch.js', sketch)
+
 # Handle any request using /images/ in the path as a request for
 # a static file from the images directory
 app.router.add_static('/images/',
                       path=f'{project_root}/images',
                       name='images')
+
+# Attach socketio asynchronous server to the web server application
+# to handle messages over sockets
+sio = socketio.AsyncServer()
+sio.attach(app)
 
 # Client connecting to a socket
 @sio.event
@@ -61,7 +68,7 @@ def randomImage(sizeX, sizeY):
     
     # Return the image as the result of the function
     return im
-
+    
 # 'takepicture' received on the socket
 @sio.on('takepicture')
 async def takepicture(sid, data):
@@ -83,9 +90,6 @@ async def takepicture(sid, data):
 def disconnect(sid):    
     print('disconnect ', sid)
 
-# Specify callbacks to use when get request for specified routes
-app.router.add_get('/', index)
-app.router.add_get('/sketch.js', sketch)
-
 if __name__ == '__main__':
+    # If we're running this file directly, start the web application
     web.run_app(app)
