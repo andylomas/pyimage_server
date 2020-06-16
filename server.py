@@ -13,8 +13,7 @@ app = web.Application()
 sio.attach(app)
 
 # Change the working directory to the project root
-# This line should be changed depending on where you
-# place the code in the Raspberry Pi
+# This line should be changed depending on where you place the code
 project_root = 'E:/Users/Andy Lomas/Documents/GitHub/pyimage_server'
 os.chdir(project_root)
 
