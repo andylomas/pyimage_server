@@ -85,7 +85,7 @@ async def takepicture(sid, data):
     # Send a message to the client with the name of the image file
     await sio.emit('picturetaken', f'images/{uniqueImageName}', to=sid)
 
-# Client disconnect from socket
+# Client disconnecting from a socket
 @sio.event
 def disconnect(sid):    
     print('disconnect ', sid)
