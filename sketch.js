@@ -15,7 +15,6 @@ function setup() {
 
   // Address of the web server. Change this address to the
   // server you're running on
-  //const serverAddress = 'http://192.168.0.18:8080';
   const serverAddress = 'http://localhost:8080';
 
   // Connect to the server using a socket

@@ -7,24 +7,6 @@ import os
 
 print("Starting server.py")
 
-# Function to generate an image or random coloured squares
-def randomImage(sizeX, sizeY):
-    # Create a low resolution image with random pixel colours
-    im = Image.new('RGB', (sizeX // 16, sizeY // 16))
-    pixels = im.load()
-    for x in range(im.size[0]):
-        for y in range(im.size[1]):
-            pixels[x, y] = (
-                random.randint(0,255),
-                random.randint(0,255),
-                random.randint(0,255))
-
-    # Resize the image up to full size
-    im = im.resize((sizeX, sizeY), Image.NEAREST);
-
-    # Return the image as the result of the function
-    return im
-
 # Attach socketio to the web server application
 sio = socketio.AsyncServer()
 app = web.Application()
@@ -61,6 +43,25 @@ app.router.add_static('/images/',
 @sio.event
 def connect(sid, environ):    
     print("connect ", sid)
+
+# Function to generate an image of random coloured squares
+def randomImage(sizeX, sizeY):
+    # Create a low resolution image with random pixel colours
+    im = Image.new('RGB', (sizeX // 16, sizeY // 16))
+    pixels = im.load()
+    for x in range(im.size[0]):
+        for y in range(im.size[1]):
+            pixels[x, y] = (
+                random.randint(0,255),
+                random.randint(0,255),
+                random.randint(0,255))
+
+    # Resize the image up to full size, turning each original
+    # pixel into a square
+    im = im.resize((sizeX, sizeY), Image.NEAREST)
+    
+    # Return the image as the result of the function
+    return im
 
 # 'takepicture' received on the socket
 @sio.on('takepicture')
